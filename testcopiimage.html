@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload and Copy Image to Clipboard</title>
+</head>
+<body>
+    <h1>Upload and Copy Image to Clipboard</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <br><br>
+    <img id="imageDisplay" style="max-width: 100%; height: auto; display: none;" alt="Uploaded Image">
+    <br><br>
+    <button onclick="copyImageToClipboard()">Copy Image to Clipboard</button>
+
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('imageDisplay').src = e.target.result;
+                    copyImageToClipboard(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        async function copyImageToClipboard(url) {
+            const img = document.getElementById('imageDisplay');
+            // Create a temporary canvas element
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            // Draw image onto canvas
+            const image = new Image();
+            image.onload = function() {
+                ctx.drawImage(image, 0, 0);
+                // Convert canvas content to a Blob
+                canvas.toBlob(async function(blob) {
+                    if (!blob) {
+                        console.error('Failed to create Blob.');
+                        return;
+                    }
+                    // Write blob to clipboard as an image
+                    try {
+                        const item = new ClipboardItem({ 'image/png': blob });
+                        await navigator.clipboard.write([item]);
+                        alert('Image copied to clipboard!');
+                    } catch (error) {
+                        console.error('Failed to copy image: ', error);
+                    }
+                }, 'image/png');
+            };
+            image.src = img.src;
+        }
+    </script>
+</body>
+</html>

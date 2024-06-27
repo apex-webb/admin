@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel to Text Converter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+</head>
+<body>
+    <h1>Upload Excel File and Convert to Text</h1>
+    <input type="file" id="upload" accept=".xlsx, .xls"/>
+
+    <script>
+        document.getElementById('upload').addEventListener('change', handleFile, false);
+
+        function handleFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const textOutput = excelToText(workbook);
+                    downloadTextFile(textOutput, 'output.txt');
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        }
+
+        function excelToText(workbook) {
+            let result = `VERSION BUILD=1011 RECORDER=CR
+                        \nURL GOTO=https://web.whatsapp.com/
+                        \nWAIT SECONDS=10`;
+            workbook.SheetNames.forEach(sheetName => {
+                const worksheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[worksheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet);
+                for (let i = 0; i < jsonData.length; i++) {
+                    const row = jsonData[i];
+                    var telephone = row.UsdlK;
+                    var domaine = row.W4Efsd;
+                    var fullName = row.qBF1Pd;
+                    var message = `Cher(e) responsable ${fullName}, Nous somme ApexWeb, une agence spécialisée dans la création de sites web. Aujourd'hui, une présence en ligne est essentielle pour toute entreprise, y compris ${domaine}. Un site web peut améliorer votre visibilité, faciliter les réservations pour vos clients et renforcer votre image de marque. En étant plus présent en ligne, vous paraîtrez plus légitime et attirerez ainsi davantage de clients. Contactez-nous pour discuter de la manière dont nous pouvons aider votre entreprise de ${domaine} à se développer en ligne. Email : inbox@apexweb.live, Num téléphone : 06.12.44.12.46, Notre Site: https://apexweb.live`
+                    if (telephone != '' && ((telephone.length == 15 && telephone[5] != 5 && telephone[5] != 8) || (telephone.length == 11 && telephone[1] != 5 && telephone[1] != 8))) {
+                        if (telephone[0] == 0) {
+                            telephone = telephone.replace(telephone[0], '+212 ');
+                        }
+                        result += `\nEVENT TYPE=MOUSEDOWN SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(3)>HEADER>HEADER>DIV>SPAN>DIV>SPAN>DIV>DIV>SPAN" BUTTON=0
+                        \nEVENT TYPE=MOUSEMOVE SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(3)>HEADER>HEADER>DIV>SPAN>DIV>SPAN>DIV>DIV>SPAN" POINT="(388,33)"
+                        \nEVENT TYPE=MOUSEUP POINT="(388,33)"
+                        \nEVENT TYPE=CLICK SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(3)>HEADER>HEADER>DIV>SPAN>DIV>SPAN>DIV>DIV>SPAN" BUTTON=0
+                        \nEVENT TYPE=MOUSEDOWN SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>DIV>P" BUTTON=0
+                        \nEVENTS TYPE=MOUSEMOVE SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>DIV>P" POINTS="(310,86),(311,86)"
+                        \nEVENT TYPE=MOUSEUP POINT="(311,86)"
+                        \nEVENT TYPE=CLICK SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>DIV>P" BUTTON=0
+                        \nEVENTS TYPE=KEYPRESS SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>DIV" CHARS="${telephone}"
+                        \nEVENT TYPE=MOUSEDOWN SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>SPAN" BUTTON=0
+                        \nEVENT TYPE=MOUSEMOVE SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>SPAN" POINT="(219,202)"
+                        \nEVENT TYPE=MOUSEUP POINT="(219,202)"
+                        \nEVENT TYPE=CLICK SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>SPAN" BUTTON=0
+                        \nEVENT TYPE=CLICK SELECTOR="#main>FOOTER>DIV>DIV>SPAN:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>P" BUTTON=0
+                        \nEVENTS TYPE=KEYPRESS SELECTOR="#main>FOOTER>DIV>DIV>SPAN:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV" CHARS="${message}"
+                        \nEVENT TYPE=KEYPRESS SELECTOR="#main>FOOTER>DIV>DIV>SPAN:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV" KEY=86 MODIFIERS="meta"
+                        \nEVENT TYPE=KEYPRESS SELECTOR="#main>FOOTER>DIV>DIV>SPAN:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV" KEY=86 MODIFIERS="ctrl"
+                        \nEVENT TYPE=CLICK SELECTOR="#main>FOOTER>DIV>DIV>SPAN:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>BUTTON>SPAN" BUTTON=0`
+                    }
+                }
+            });
+            return result;
+        }
+
+        function downloadTextFile(text, filename) {
+            const blob = new Blob([text], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
