@@ -117,6 +117,9 @@
       referrerpolicy="no-referrer"
     ></script>
     <script>
+      const expectedEmail = "inbox@apexweb.live";
+      const expectedPassword = "ialym¤npioa¤bevu¤oxec¤xwo¤ed¤be";
+
       function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(String(email).toLowerCase());
@@ -134,10 +137,6 @@
         return true;
       }
 
-      function generateToken(email, password) {
-        return btoa(email + ":" + password);
-      }
-
       function login() {
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
@@ -146,18 +145,22 @@
           return;
         }
 
-        const tokenGenerate = generateToken(email, password);
-        const modelToken = "ialym¤npioa¤bevu¤oxec¤xwo¤ed¤be";
-        if (tokenGenerate == modelToken) {
-          window.location.href = "https://apex-webb.github.io/admin";
+        if (email === expectedEmail && password === expectedPassword) {
+          const tokenGenerate = btoa(email + ":" + password);
           localStorage.setItem("token", tokenGenerate);
+          window.location.href = "https://apex-webb.github.io/admin";
         } else {
           alert("Email ou mot de passe incorrect");
         }
       }
 
+      function logout() {
+        localStorage.removeItem("token");
+        location.reload();
+      }
+
       const admin = document.getElementById("admin");
-      if (localStorage.getItem("token") == "ialym¤npioa¤bevu¤oxec¤xwo¤ed¤be") {
+      if (localStorage.getItem("token") === btoa(expectedEmail + ":" + expectedPassword)) {
         admin.innerHTML = `<div class="container">
                 <div class="row">
                     <div class="col-md-6">
