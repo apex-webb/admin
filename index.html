@@ -160,8 +160,16 @@
       }
 
       const admin = document.getElementById("admin");
-      if (localStorage.getItem("token") === btoa(expectedEmail + ":" + expectedPassword)) {
-        admin.innerHTML = `<div class="container">
+      if (
+        localStorage.getItem("token") ===
+        btoa(expectedEmail + ":" + expectedPassword)
+      ) {
+        admin.innerHTML = `
+		<div class="card-header">
+                                <h1>APEXWEB</h1>
+                            </div>
+		<div class="container">
+			
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card">
@@ -170,6 +178,10 @@
                             </div>
                             <div class="card-body">
                                 <button type="button" class="btn btn-primary" onclick="logout()">Logout</button>
+                            </div>
+							<div class="card-body">
+                                <a type="button" class="btn btn-primary" href="https://admin.apexweb.live/testcopiimage.html" >1er Etape</a>
+								<a type="button" class="btn btn-primary" href="https://admin.apexweb.live/index2.html" >2eme Etape</a>
                             </div>
                         </div>
                     </div>
