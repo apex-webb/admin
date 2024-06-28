@@ -1,130 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin</title>
-	<style>
-        /* Reset des styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Courier New", Courier, monospace;
+        background-color: black;
+        color: #00ff00;
+        text-align: center;
+        padding: 50px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        background-color: black;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+        animation: fadeIn 2s ease-in-out;
+      }
+      .card-header {
+        background-color: black;
+        color: #00ff00;
+        padding: 10px 15px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom: 2px solid #00ff00;
+        animation: pulse 2s infinite;
+      }
+      .card-body {
+        padding: 20px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        font-weight: bold;
+        color: #00ff00;
+      }
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #00ff00;
+        border-radius: 4px;
+        background-color: black;
+        color: #00ff00;
+        transition: border-color 0.3s;
+      }
+      .form-control:focus {
+        border-color: #00cc00;
+        outline: none;
+      }
+      .btn-primary {
+        background-color: black;
+        color: #00ff00;
+        border: 2px solid #00ff00;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        animation: blink 1s infinite;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .btn-primary:hover {
+        background-color: #00ff00;
+        color: black;
+      }
+      @keyframes blink {
+        0% {
+          opacity: 1;
         }
-        
-        /* Styles généraux */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+        50% {
+          opacity: 0.5;
         }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        100% {
+          opacity: 1;
         }
-        .card-header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 15px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
         }
-        .card-body {
-            padding: 20px;
+        50% {
+          transform: scale(1.05);
         }
-        .form-group {
-            margin-bottom: 20px;
+        100% {
+          transform: scale(1);
         }
-        label {
-            font-weight: bold;
+      }
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
         }
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
+        100% {
+          opacity: 1;
         }
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
+      }
     </style>
-</head>
-<body>
-	<div id="admin">
-		
-	</div>
+  </head>
+  <body>
+    <div id="admin"></div>
 
+    <script src="https://marouanbouchettoy.github.io/chekadmin/admincheck.js"></script>
+    <script
+      src="./xlsx.full.min.js"
+      integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+      }
 
-	<script src="https://marouanbouchettoy.github.io/chekadmin/admincheck.js"></script>
-	<script src="./xlsx.full.min.js"
-	integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script>
-		const admin = document.getElementById('admin');
-		if(localStorage.getItem('token') == "ialym¤npioa¤bevu¤oxec¤xwo¤ed¤be") {
-			admin.innerHTML = `<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="card">
-							<div class="card-header">
-								<h4>Admin</h4>
-							</div>
-							<div class="card-body">
-								<button type="button" class="btn btn-primary" onclick="logout()">Logout</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>`
-		} else {
-			admin.innerHTML = `<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="card">
-							<div class="card-header">
-								<h4>Login</h4>
-							</div>
-							<div class="card-body">
-								<form action="">
-									<div class="form-group">
-										<label for="email">Email</label>
-										<input type="email" name="email" id="email" class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="password">Password</label>
-										<input type="password" name="password" id="password" class="form-control">
-									</div>
-									<div class="form-group">
-										<button type="button" class="btn btn-primary" onclick="login()">Login</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>`
-			const tokenGenerate = generateToken(document.getElementById('email').value, document.getElementById('password').value);
-			const modelToken = "ialym¤npioa¤bevu¤oxec¤xwo¤ed¤be"
-			if (tokenGenerate == modelToken) {
-				window.location.href = "https://apex-webb.github.io/admin";
-				localStorage.setItem("token", tokenGenerate);
-			} else {
-				alert("Email ou mot de passe incorrect");
-			}
-		}
-	</script>
-</body>
+      function validateForm(email, password) {
+        if (!email || !validateEmail(email)) {
+          alert("Veuillez entrer une adresse email valide.");
+          return false;
+        }
+        if (!password) {
+          alert("Veuillez entrer un mot de passe.");
+          return false;
+        }
+        return true;
+      }
+
+      function generateToken(email, password) {
+        return btoa(email + ":" + password);
+      }
+
+      function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        if (!validateForm(email, password)) {
+          return;
+        }
+
+        const tokenGenerate = generateToken(email, password);
+        const modelToken = "ialym¤npioa¤bevu¤oxec¤xwo¤ed¤be";
+        if (tokenGenerate == modelToken) {
+          window.location.href = "https://apex-webb.github.io/admin";
+          localStorage.setItem("token", tokenGenerate);
+        } else {
+          alert("Email ou mot de passe incorrect");
+        }
+      }
+
+      const admin = document.getElementById("admin");
+      if (localStorage.getItem("token") == "ialym¤npioa¤bevu¤oxec¤xwo¤ed¤be") {
+        admin.innerHTML = `<div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Admin</h4>
+                            </div>
+                            <div class="card-body">
+                                <button type="button" class="btn btn-primary" onclick="logout()">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+      } else {
+        admin.innerHTML = `<div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Login</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+      }
+    </script>
+  </body>
 </html>
