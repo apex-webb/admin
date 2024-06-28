@@ -4,6 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload and Copy Image to Clipboard</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            background-color: black;
+            color: #00FF00;
+            border: 2px solid #00FF00;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        input[type="file"]::-webkit-file-upload-button {
+            background: black;
+            color: #00FF00;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        input[type="file"]::-ms-browse {
+            background: black;
+            color: #00FF00;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        button {
+            background-color: black;
+            color: #00FF00;
+            border: 2px solid #00FF00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        img {
+            border: 2px solid #00FF00;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Upload and Copy Image to Clipboard</h1>
@@ -20,6 +67,7 @@
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     document.getElementById('imageDisplay').src = e.target.result;
+                    document.getElementById('imageDisplay').style.display = 'block';
                     copyImageToClipboard(e.target.result);
                 };
                 reader.readAsDataURL(file);
