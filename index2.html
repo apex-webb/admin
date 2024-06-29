@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excel to Text Converter</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <script src="./xlsx.full.min.js"
+        integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         body {
             background-color: black;
@@ -13,10 +16,12 @@
             text-align: center;
             padding: 50px;
         }
+
         h1 {
             font-size: 2em;
             margin-bottom: 20px;
         }
+
         input[type="file"] {
             background-color: black;
             color: #00FF00;
@@ -25,6 +30,7 @@
             cursor: pointer;
             font-size: 1em;
         }
+
         input[type="file"]::-webkit-file-upload-button {
             background: black;
             color: #00FF00;
@@ -32,6 +38,7 @@
             padding: 10px;
             cursor: pointer;
         }
+
         input[type="file"]::-ms-browse {
             background: black;
             color: #00FF00;
@@ -39,21 +46,108 @@
             padding: 10px;
             cursor: pointer;
         }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: black;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
+          }
+          .card-header {
+            background-color: black;
+            color: #00ff00;
+            padding: 10px 15px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            border-bottom: 2px solid #00ff00;
+            animation: pulse 2s infinite;
+          }
+          .card-body {
+            padding: 20px;
+          }
+          .btn-primary {
+            background-color: black;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            animation: blink 1s infinite;
+            transition: background-color 0.3s, color 0.3s;
+          }
+          .btn-primary:hover {
+            background-color: #00ff00;
+            color: black;
+          }
+          @keyframes blink {
+            0% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0.5;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.05);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
     </style>
 </head>
+
 <body>
-    <h1>Upload Excel File and Convert to Text</h1>
-    <input type="file" id="upload" accept=".xlsx, .xls"/>
+    <div class="card-header">
+        <h1>APEXWEB</h1>
+    </div>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Admin</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1>Upload Excel File and Convert to Text</h1>
+                        <input type="file" id="upload" accept=".xlsx, .xls" />
+                        <a type="button" class="btn btn-primary" id="back" href="${domaine}">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://marouanbouchettoy.github.io/chekadmin/admincheck.js"></script>
 
     <script>
+        const back = document.getElementById('back');
+        back.setAttribute('href', window.location.origin);
         document.getElementById('upload').addEventListener('change', handleFile, false);
 
         function handleFile(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     const data = new Uint8Array(e.target.result);
                     const workbook = XLSX.read(data, { type: 'array' });
                     const textOutput = excelToText(workbook);
@@ -89,9 +183,13 @@
                         \nEVENTS TYPE=MOUSEMOVE SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>DIV>P" POINTS="(310,86),(311,86)"
                         \nEVENT TYPE=MOUSEUP POINT="(311,86)"
                         \nEVENT TYPE=CLICK SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>DIV>P" BUTTON=0
-                        \nEVENTS TYPE=KEYPRESS SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>DIV" CHARS="${telephone}"
-                        \nEVENT TYPE=MOUSEDOWN SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>SPAN" BUTTON=0
-                        \nEVENT TYPE=MOUSEMOVE SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>SPAN" POINT="(219,202)"
+                        \nEVENTS TYPE=KEYPRESS SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>DIV" CHARS="${telephone}"`
+                        if (localStorage.getItem('userName') == 'aymen1rhannoumi@gmail.com') {
+                            result += `\nEVENT TYPE=CLICK SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV:nth-of-type(2)" BUTTON=0"`
+                        } else {
+                            result += `\nEVENT TYPE=MOUSEDOWN SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>SPAN" BUTTON=0`
+                        }
+                        `\nEVENT TYPE=MOUSEMOVE SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>SPAN" POINT="(219,202)"
                         \nEVENT TYPE=MOUSEUP POINT="(219,202)"
                         \nEVENT TYPE=CLICK SELECTOR="#app>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(2)>DIV>SPAN>DIV>SPAN>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>SPAN" BUTTON=0
                         \nEVENT TYPE=CLICK SELECTOR="#main>FOOTER>DIV>DIV>SPAN:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>P" BUTTON=0
@@ -116,4 +214,5 @@
         }
     </script>
 </body>
+
 </html>

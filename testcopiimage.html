@@ -50,17 +50,100 @@
             border: 2px solid #00FF00;
             margin-top: 20px;
         }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: black;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
+          }
+          .card-header {
+            background-color: black;
+            color: #00ff00;
+            padding: 10px 15px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            border-bottom: 2px solid #00ff00;
+            animation: pulse 2s infinite;
+          }
+          .card-body {
+            padding: 20px;
+          }
+          .btn-primary {
+            background-color: black;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            animation: blink 1s infinite;
+            transition: background-color 0.3s, color 0.3s;
+          }
+          .btn-primary:hover {
+            background-color: #00ff00;
+            color: black;
+          }
+          @keyframes blink {
+            0% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0.5;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.05);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
     </style>
 </head>
 <body>
-    <h1>Upload and Copy Image to Clipboard</h1>
-    <input type="file" id="imageInput" accept="image/*">
-    <br><br>
-    <img id="imageDisplay" style="max-width: 100%; height: auto; display: none;" alt="Uploaded Image">
-    <br><br>
-    <button onclick="copyImageToClipboard()">Copy Image to Clipboard</button>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Admin</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1>Upload and Copy Image to Clipboard</h1>
+                        <input type="file" id="imageInput" accept="image/*">
+                        <br><br>
+                        <img id="imageDisplay" style="max-width: 100%; height: auto; display: none;" alt="Uploaded Image">
+                        <br><br>
+                        <button onclick="copyImageToClipboard()">Copy Image to Clipboard</button>
+                        <a type="button" class="btn btn-primary" id="back" href="${domaine}">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://marouanbouchettoy.github.io/chekadmin/admincheck.js"></script>
     <script>
+        const back = document.getElementById('back');
+        back.setAttribute('href', window.location.origin);
         document.getElementById('imageInput').addEventListener('change', function (event) {
             const file = event.target.files[0];
             if (file) {
